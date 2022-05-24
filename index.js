@@ -18,6 +18,7 @@ async function run() {
     try{
         await client.connect();
         const partsCollection = client.db('bicycle_parts').collection('parts')
+        const orderCollection = client.db('bicycle_parts').collection('orders')
 
         app.get('/partses', async (req, res) => {
             const query = {};
@@ -32,6 +33,13 @@ async function run() {
             const query={_id: ObjectId(id)};
             const partses = await partsCollection.findOne(query);
             res.send(partses);
+        });
+
+          // POST single order API 
+          app.post('/order', async(req, res) =>{
+            const order = req.body;
+            const result = await orderCollection.insertOne(order);
+            res.send(result);
         });
     }
     finally{
