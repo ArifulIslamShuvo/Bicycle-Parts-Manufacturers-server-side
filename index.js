@@ -25,6 +25,14 @@ async function run() {
             const parts = await cursor.toArray();
             res.send(parts);
         });
+
+         // get single parts API
+         app.get('/partses/:id', async(req, res) =>{
+            const id = req.params.id;
+            const query={_id: ObjectId(id)};
+            const partses = await partsCollection.findOne(query);
+            res.send(partses);
+        });
     }
     finally{
 
