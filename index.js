@@ -76,6 +76,16 @@ async function run() {
             }
         });
 
+
+        // get all user
+        app.get('/user', verifyJWT, async (req, res) => {
+           const query = {};
+           const cursor = userCollection.find(query)
+           const user = await cursor.toArray();
+           res.send(user);
+        });
+
+        
         app.put('/user/:email', async (req, res) => {
             const email = req.params.email;
             const user = req.body;
