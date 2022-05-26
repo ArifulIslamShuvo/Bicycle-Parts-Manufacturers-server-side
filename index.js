@@ -128,11 +128,18 @@ async function run() {
             res.send({admin: isAdmin});
         })
 
-         // POST
+         // POST a signal api
          app.post('/review', async(req, res) =>{
             const review = req.body;
             const result = await reviewCollection.insertOne(review);
             res.send(result);
+        });
+         // get api
+         app.get('/review', async (req, res) => {
+            const query = {};
+            const cursor = reviewCollection.find(query);
+            const review = await cursor.toArray();
+            res.send(review);
         });
 
 
