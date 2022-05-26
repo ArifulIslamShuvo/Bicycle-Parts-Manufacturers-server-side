@@ -48,6 +48,14 @@ async function run() {
             res.send(parts);
         });
 
+        // post partes
+        app.post('/partses', async (req, res) => {
+            const parts = req.body;
+            const result = await partsCollection.insertOne(parts);
+            res.send(result);
+        });
+
+
         // get single parts API
         app.get('/partses/:id', async (req, res) => {
             const id = req.params.id;
