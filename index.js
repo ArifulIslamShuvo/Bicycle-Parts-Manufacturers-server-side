@@ -39,6 +39,7 @@ async function run() {
         const partsCollection = client.db('bicycle_parts').collection('parts')
         const orderCollection = client.db('bicycle_parts').collection('orders')
         const userCollection = client.db('bicycle_parts').collection('user')
+        const reviewCollection = client.db('bicycle_parts').collection('reviews')
 
         app.get('/partses', async (req, res) => {
             const query = {};
@@ -127,6 +128,12 @@ async function run() {
             res.send({admin: isAdmin});
         })
 
+         // POST
+         app.post('/review', async(req, res) =>{
+            const review = req.body;
+            const result = await reviewCollection.insertOne(review);
+            res.send(result);
+        });
 
 
     }
