@@ -78,6 +78,16 @@ async function run() {
             res.send(result);
         });
 
+        // get all orders
+        app.get("/allorders", async (req, res) => {
+            const query = {};
+            const cursor = orderCollection.find(query);
+            const orders = await cursor.toArray();
+            res.send(orders);
+          });
+
+        
+          // get user orders
         app.get('/order', verifyJWT, async (req, res) => {
             const userEmail = req.query.userEmail;
             const decodedEmail = req.decoded.email;
@@ -173,3 +183,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log('biycle parts listening', port);
 })
+
+
